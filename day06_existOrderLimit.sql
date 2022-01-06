@@ -178,3 +178,4 @@ SET
  select * from kisiler order by adres;
  select * from kisiler ;
  --hello
+ --hello2
