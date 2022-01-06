@@ -176,4 +176,5 @@ SET
  -----------------------------------------------------------------------------*/ 
  
  select * from kisiler order by adres;
+ select * from kisiler ;
  
