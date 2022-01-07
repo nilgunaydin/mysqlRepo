@@ -9,7 +9,7 @@
     fonksiyonları ile birlikte kullanılır.
     
 ==============================================================================*/ 
-      
+use sys      ;
     CREATE TABLE manav 
     (
         isim varchar(50), 
@@ -91,9 +91,13 @@
   sorguyu yazınız. NOT: Sorgu, sadece MAKS urun_miktari MIN urun_miktarına 
   eşit olmayan kayıtları listelemelidir.
  -----------------------------------------------------------------------------*/    
+ select urun_adi, max(urun_miktari) maks
+ from manav 
+ group by urun_adi
+ having maks!=min(urun_miktari)
+ order by maks;
  
- 
- 
+
  /*============================= DISTINCT =====================================
     
     DISTINCT cümleciği bir SORGU ifadesinde benzer olan satırları filtrelemek
@@ -109,3 +113,18 @@
 /* ----------------------------------------------------------------------------
   ORNEK1: satılan farklı meyve türlerinin sayısını listeleyen sorguyu yazınız.
 -----------------------------------------------------------------------------*/   
+
+  select count(distinct urun_adi) as urun_cesit_sayisi from manav;
+  
+  /* -----------------------------------------------------------------------------
+  ORNEK2: satılan meyve + isimlerin farklı olanlarını listeyen sorguyu yazınız.
+------------------------------------------------------------------------------*/
+
+select distinct urun_adi,isim from manav;
+
+/* ----------------------------------------------------------------------------
+  ORNEK3: satılan meyvelerin urun_miktarlarinin benzersiz  olanlarının 
+  toplamlarini listeyen sorguyu yazınız.
+-----------------------------------------------------------------------------*/  
+
+select sum(distinct urun_miktari) toplam from manav;
