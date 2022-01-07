@@ -171,11 +171,61 @@ SET
     INSERT INTO kisiler VALUES (11,344678901, 'Mine','Yasa', 5000,'Ankara');
     INSERT INTO kisiler VALUES (12,345458901, 'Veli','Yilmaz',7000,'Istanbul');
     
-    /* ----------------------------------------------------------------------------
+      /* ----------------------------------------------------------------------------
   ORNEK1: kisiler tablosunu adres'e göre sıralayarak sorgulayınız.
  -----------------------------------------------------------------------------*/ 
+ select * from kisiler 
+ order by adres;
+    
+    /* ----------------------------------------------------------------------------
+  ORNEK2: kisiler tablosunu maas a göre ters sıralayarak sorgulayınız.
+ -----------------------------------------------------------------------------*/ 
  
- select * from kisiler order by adres;
- select * from kisiler ;
- --hello
- --hello2
+ select * from kisiler
+ order by maas desc;
+    
+  /* ----------------------------------------------------------------------------
+  ORNEK4: ismi Mine olanları, maas a göre AZALAN sırada sorgulayınız.
+-----------------------------------------------------------------------------*/
+    select * from kisiler
+    where isim ='Mine'
+    order by maas desc;
+/* ----------------------------------------------------------------------------
+  ORNEK5: soyismi 'i Bulut olanları maas sıralı olarak sorgulayınız.
+-----------------------------------------------------------------------------*/   
+    select * from kisiler
+    where soyisim='Bulut'
+    order by 5;
+    
+-- *****************************LİMİT**********************************
+-- listeden ilk 10 veriyi getir
+select * from kisiler limit 10;
+-- 10. veriden sonraki 2 veriyi al (11 ve 12)  1. yol
+select * from kisiler limit 10,2;-- ilk sayi dahil değil (11 den başla), 2. say kadar git (2 tane git)
+   -- 2. yol
+  select * from kisiler where id>10 limit 2; 
+  
+  /* ----------------------------------------------------------------------------
+  ORNEK1: MAAŞ'ı en yüksek 3 kişinin bilgilerini listeleyen sorguyu yazınız.
+-----------------------------------------------------------------------------*/
+select * from kisiler
+order by maas desc
+limit 3;
+
+/*oracle çözümü
+select * from kisiler
+order by maas desc
+fetch next 3 rows only;*/
+
+/* ----------------------------------------------------------------------------
+  ORNEK2: MAAŞ'a göre sıralamada 4. 5.  6. kişilerin bilgilerini listeleyen 
+  sorguyu yazınız.
+-----------------------------------------------------------------------------*/  
+select * from kisiler
+order by maas 
+limit 3,3;
+   
+-- oracle çözümü
+--  OFFSET 3 ROWS           -- ilk 3 kaydı atladık
+-- FETCH NEXT 3 ROWS ONLY; -- sonraki 3 kisi
+  
