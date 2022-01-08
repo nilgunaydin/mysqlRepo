@@ -17,7 +17,7 @@
     NOT: UNION operatoru SADECE benzersiz degerleri alir. Benzerli verileri almak
     için UNION ALL kullanilir.
 ==============================================================================*/ 
-
+use sys;
 CREATE TABLE personel 
     (
         id int  PRIMARY KEY, 
@@ -141,4 +141,7 @@ select tel, cocuk_sayisi from personel_bilgi where id=123;
 ------------------------------------------------------------------------------*/
 select id from personel where sehir in('istanbul','ankara') union select id from personel_bilgi where cocuk_sayisi in(2,3);
 
--- 
+-- sirketlerden grupla,sirketlerin calisan isimlerini say
+select sirket, count(isim) from personel
+group by sirket;
+
