@@ -38,16 +38,22 @@ Güncellemeden sonra calisanlar tablosu aşağıda görüldüğü gibi olmalıd�
  
 -- 4-)  Çalışanların  isim  ve  cocuk_sayisi'ni  listeleyen  bir  sorgu  yazınız.  
  
- select isim , (select cocuk_sayisi from aileler where calisanlar.id=aileler.id )as cocukSayisi from calisanlar;
+select isim , (select cocuk_sayisi from aileler where calisanlar.id=aileler.id )as cocukSayisi from calisanlar;
+ 
+select isim , cocuk_sayisi from aileler, calisanlar where calisanlar.id=aileler.id;
+  
 -- 5-) calisanlar' ın  id, isim ve toplam_gelir'lerini gösteren bir sorgu yazınız.  
  --     toplam_gelir = calisanlar.maas + aileler.ek_gelir  
 select id, isim, ((select ek_gelir from aileler  
 where calisanlar.id=aileler.id )+maas)as toplam_gelir   from calisanlar;
+
+select calisanlar.id, isim, (ek_gelir+maas)as toplam_gelir from aileler,calisanlar where calisanlar.id=aileler.id ;
  
 -- 6-) Eğer bir ailenin kişi başı geliri 2000 TL den daha az ise o çalışanın 
     -- maaşına ek %10 aile yardım zammı yapınız.  
    -- kisi_basi_gelir = toplam_gelir / cocuk_sayisi + 2 (anne ve baba)*/
+   
    update calisanlar set maas=maas*(110/100)
    where ((select ek_gelir from aileler  
-where calisanlar.id=aileler.id )+maas)/((select cocuk_sayisi from aileler where calisanlar.id=aileler.id )+ 2)>2000;
+where calisanlar.id=aileler.id )+maas)/((select cocuk_sayisi from aileler where calisanlar.id=aileler.id )+ 2)<2000;
    
